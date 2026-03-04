@@ -10,14 +10,11 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --teal:   rgb(130,210,195);
-    --orange: rgb(215,140,90);
-    --ink:    #1a1a1a;
-    --muted:  #555;
-    --faint:  #f0ede9;
-    --white:  #ffffff;
-    --bg:     #faf9f7;
-    --focus:  #005fcc;
+    --ink:   #1a1a1a;
+    --muted: #444;
+    --white: #ffffff;
+    --bg:    #faf9f7;
+    --focus: #005fcc;
   }
 
   body {
@@ -28,11 +25,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px 60px;
+    padding: 36px 20px 60px;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Skip link */
   .skip-link {
     position: absolute; top: -100px; left: 16px;
     background: var(--focus); color: white;
@@ -43,165 +39,147 @@
   .skip-link:focus { top: 16px; }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
   }
   .animate { animation: fadeUp 0.6s ease both; }
   .d1 { animation-delay: 0.05s; }
   .d2 { animation-delay: 0.15s; }
   .d3 { animation-delay: 0.25s; }
-  .d4 { animation-delay: 0.35s; }
 
-  /* ── Header ── */
-  .header { text-align: center; margin-bottom: 8px; max-width: 480px; }
+  /* Header */
+  .header { text-align: center; margin-bottom: 16px; max-width: 500px; }
   .eyebrow {
     font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
     color: #999; font-weight: 500; margin-bottom: 10px;
   }
   h1 {
     font-family: 'DM Serif Display', serif;
-    font-size: clamp(24px, 5vw, 38px);
+    font-size: clamp(22px, 4.5vw, 36px);
     line-height: 1.15; color: var(--ink); margin-bottom: 10px;
   }
-  h1 em { font-style: italic; color: #666; }
-  .subtitle {
-    font-size: 14px; color: var(--muted); line-height: 1.65;
+  h1 em { font-style: italic; color: #555; }
+  .subtitle { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  /* Instruction banner */
+  .instruction {
+    display: flex; align-items: center; gap: 10px;
+    background: white; border: 1px solid #e0dbd4;
+    border-radius: 10px; padding: 11px 16px;
+    max-width: 520px; width: 100%; margin-bottom: 14px;
+    font-size: 13px; color: #333; font-weight: 500;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  }
+  .instruction-icon { font-size: 18px; flex-shrink: 0; }
+  .instruction kbd {
+    background: #f0ede9; border: 1px solid #ccc;
+    border-radius: 4px; padding: 1px 6px;
+    font-size: 11px; font-family: monospace; color: #444;
   }
 
-  /* ── Keyboard hint ── */
-  .kb-hint {
-    font-size: 12px; color: #999; margin-bottom: 4px;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .kb-hint kbd {
-    background: #eee; border: 1px solid #ccc; border-radius: 4px;
-    padding: 1px 5px; font-size: 11px; font-family: monospace;
-  }
-
-  /* ── Arc wrapper ── */
+  /* Arc wrapper */
   #arc-wrap {
-    width: 100%; max-width: 580px;
-    position: relative;
+    width: 100%; max-width: 600px;
+    position: relative; cursor: pointer;
+    padding-bottom: 10px;
   }
+  #arc-wrap.done { cursor: default; }
 
-  /* ── Slider (visually hidden but functional) ── */
-  /* We use a real range input overlaid on the arc for full a11y */
+  /* Invisible range input over the arc base */
   #spectrum-slider {
     position: absolute;
-    bottom: 36px;
-    left: 5%;
-    width: 90%;
-    height: 44px; /* large touch target */
-    opacity: 0;
-    cursor: pointer;
-    margin: 0;
-    z-index: 10;
+    bottom: 16px; left: 4%; width: 92%; height: 54px;
+    opacity: 0; cursor: pointer; margin: 0; z-index: 10;
   }
   #spectrum-slider:disabled { cursor: default; }
 
-  /* Focus ring on the SVG marker when slider is focused */
-  #spectrum-slider:focus + svg #m-focus {
-    opacity: 1;
-  }
-
   svg { display: block; width: 100%; overflow: visible; }
 
-  /* ── Spectrum labels ── */
+  /* Zone labels */
   .labels {
     display: flex; justify-content: space-between;
-    width: 100%; max-width: 560px;
-    margin-top: -8px; margin-bottom: 6px;
+    width: 100%; max-width: 580px;
+    margin-top: 6px; margin-bottom: 18px; padding: 0 4px;
   }
   .label-item {
-    flex: 1; font-size: 12px; font-weight: 500;
-    color: #bbb; transition: color 0.3s;
-    letter-spacing: 0.03em;
+    flex: 1; font-size: 13px; font-weight: 600;
+    color: #555; /* noticeably darker than before */
+    transition: color 0.25s; letter-spacing: 0.02em;
   }
   .label-item:nth-child(2) { text-align: center; }
   .label-item:nth-child(3) { text-align: right; }
-  .label-item.active { font-weight: 700; }
+  .label-item.active { font-weight: 800; }
 
-  /* ── Live region (screen reader announcements) ── */
+  /* Screen reader live region */
   #sr-live {
     position: absolute; width: 1px; height: 1px;
     overflow: hidden; clip: rect(0,0,0,0);
     white-space: nowrap; border: 0;
   }
 
-  /* ── Description card ── */
-  .card {
-    background: var(--white); border: 1px solid #ece9e4;
-    border-radius: 16px; padding: 20px 26px;
-    max-width: 520px; width: 100%;
-    box-shadow: 0 2px 18px rgba(0,0,0,0.05);
-    margin-bottom: 8px;
-  }
-  .cat-label {
-    font-size: 11px; font-weight: 600; color: #888;
-    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px;
-  }
-  .cat-value {
-    font-size: 15px; margin-bottom: 14px; color: #222;
-  }
-  .cat-value:last-child { margin-bottom: 0; }
-  .cat-value strong { font-weight: 600; }
-
   /* Position badge */
   .position-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 600;
-    border-radius: 100px; padding: 5px 14px;
-    margin-bottom: 16px; border: 2px solid currentColor;
-    transition: color 0.3s, border-color 0.3s, background 0.3s;
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 13px; font-weight: 700;
+    border-radius: 100px; padding: 6px 16px;
+    margin-bottom: 14px; border: 2px solid currentColor;
+    transition: color 0.25s;
   }
   .badge-dot {
-    width: 8px; height: 8px; border-radius: 50%;
+    width: 9px; height: 9px; border-radius: 50%;
     background: currentColor; flex-shrink: 0;
   }
 
-  /* ── Submit button ── */
+  /* Description card */
+  .card {
+    background: var(--white); border: 1px solid #e8e3dc;
+    border-radius: 16px; padding: 20px 26px;
+    max-width: 520px; width: 100%;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+  }
+  .cat-label {
+    font-size: 11px; font-weight: 600; color: #777;
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px;
+  }
+  .cat-value { font-size: 15px; margin-bottom: 16px; color: #222; line-height: 1.4; }
+  .cat-value:last-child { margin-bottom: 0; }
+  .cat-value strong { font-weight: 600; }
+
+  /* Submit button */
   #submit-btn {
     border: none; border-radius: 100px;
-    padding: 14px 42px; font-size: 15px; font-weight: 600;
+    padding: 15px 44px; font-size: 15px; font-weight: 600;
     font-family: 'DM Sans', sans-serif;
-    cursor: pointer; transition: transform 0.15s, filter 0.15s, box-shadow 0.15s;
-    color: white; letter-spacing: 0.02em;
-    margin-bottom: 24px;
+    cursor: pointer; color: white; letter-spacing: 0.02em;
+    transition: transform 0.15s, filter 0.15s, box-shadow 0.15s;
+    margin-bottom: 26px;
   }
   #submit-btn:hover:not(:disabled) { filter: brightness(1.08); transform: translateY(-2px); }
   #submit-btn:active:not(:disabled) { transform: translateY(0); }
-  #submit-btn:focus-visible {
-    outline: 3px solid var(--focus);
-    outline-offset: 3px;
-  }
-  #submit-btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+  #submit-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  #submit-btn:disabled { opacity: 0.55; cursor: default; transform: none; }
 
-  /* ── Confirmation ── */
-  #confirm-section {
-    display: none; max-width: 520px; width: 100%;
-  }
+  /* Confirmation */
+  #confirm-section { display: none; max-width: 520px; width: 100%; }
   #confirm-section.show { display: block; animation: fadeUp 0.4s ease; }
 
   .confirm-box {
-    border-radius: 12px; padding: 16px 20px;
-    margin-bottom: 20px; font-size: 14px;
-    font-weight: 500; color: #222;
-    display: flex; align-items: flex-start; gap: 12px;
+    border-radius: 12px; padding: 16px 20px; margin-bottom: 20px;
+    font-size: 14px; font-weight: 500; color: #222;
+    display: flex; align-items: flex-start; gap: 12px; line-height: 1.5;
   }
-  .confirm-icon {
-    font-size: 20px; flex-shrink: 0; margin-top: 1px;
-    /* Use text, not just emoji, for screen readers */
-  }
+  .confirm-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
 
-  /* ── Reflection ── */
+  /* Reflection */
   .reflect-card {
-    background: var(--white); border: 1px solid #ece9e4;
+    background: var(--white); border: 1px solid #e8e3dc;
     border-radius: 16px; padding: 22px 26px;
-    box-shadow: 0 2px 18px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
   }
   .reflect-card label {
     display: block; font-size: 14px; font-weight: 600;
-    color: #333; margin-bottom: 10px; line-height: 1.5;
+    color: #222; margin-bottom: 10px; line-height: 1.55;
   }
   .reflect-card textarea {
     width: 100%; border: 2px solid #ddd; border-radius: 10px;
@@ -215,19 +193,13 @@
     border-color: var(--focus);
     box-shadow: 0 0 0 3px rgba(0,95,204,0.15);
   }
-  .reflect-note {
-    font-size: 12px; color: #999; margin-top: 10px;
-    font-style: italic; line-height: 1.5;
-  }
+  .reflect-note { font-size: 12px; color: #999; margin-top: 10px; font-style: italic; line-height: 1.5; }
 
-  /* ── High contrast mode support ── */
   @media (forced-colors: active) {
     #submit-btn { border: 2px solid ButtonText; }
     .confirm-box { border: 2px solid CanvasText; }
     .position-badge { border: 2px solid CanvasText; }
   }
-
-  /* ── Reduced motion ── */
   @media (prefers-reduced-motion: reduce) {
     .animate { animation: none; }
     * { transition-duration: 0.01ms !important; }
@@ -236,95 +208,85 @@
 </head>
 <body>
 
-<!-- Skip navigation -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
-
-<!-- Screen reader live region -->
 <div id="sr-live" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <main id="main-content">
 
-  <!-- Header -->
   <header class="header animate">
     <p class="eyebrow" aria-hidden="true">Course Survey</p>
     <h1>Openness to AI<br><em>in the Classroom</em></h1>
-    <p class="subtitle">
-      Use the slider below to place yourself on the spectrum — from fully open to not open — then share a brief reflection.
-    </p>
+    <p class="subtitle">Where do you currently stand on using generative AI in your teaching?</p>
   </header>
 
-  <!-- Keyboard hint -->
-  <p class="kb-hint animate d1" aria-hidden="true">
-    <kbd>←</kbd><kbd>→</kbd> to move &nbsp;·&nbsp; <kbd>Home</kbd><kbd>End</kbd> for ends
-  </p>
+  <div class="instruction animate d1" role="note">
+    <span class="instruction-icon" aria-hidden="true">👆</span>
+    <span>
+      <strong>Click anywhere on the arc</strong> to place yourself, or drag the marker.
+      Keyboard users: press <kbd>Tab</kbd> to focus, then <kbd>←</kbd> <kbd>→</kbd> to move.
+    </span>
+  </div>
 
-  <!-- Arc + slider -->
+  <!-- Arc -->
   <div id="arc-wrap" class="animate d1">
-
-    <!--
-      The real <input type="range"> is invisible but fully operable.
-      It sits over the bottom of the arc where users would naturally interact.
-      The SVG is purely visual — the slider drives everything.
-    -->
     <input
       type="range"
       id="spectrum-slider"
       min="0" max="100" value="50" step="1"
-      aria-label="Position on the openness spectrum"
+      aria-label="Position on the openness to AI spectrum"
       aria-describedby="slider-desc"
-      aria-valuetext="It Depends — neutral or conflicted attitude, aligned with some course goals"
+      aria-valuetext="It Depends — neutral or conflicted, aligned with some course goals"
     />
-
     <svg id="arc-svg" viewBox="0 0 600 290" role="img" aria-hidden="true" focusable="false">
       <defs>
         <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%"   stop-color="rgb(130,210,195)" />
-          <stop offset="33%"  stop-color="rgb(185,195,160)" />
+          <stop offset="0%"   stop-color="rgb(75,170,150)" />
+          <stop offset="33%"  stop-color="rgb(162,183,143)" />
           <stop offset="66%"  stop-color="rgb(210,175,130)" />
           <stop offset="100%" stop-color="rgb(215,140,90)"  />
         </linearGradient>
-        <filter id="mshadow" x="-60%" y="-60%" width="220%" height="220%">
-          <feDropShadow dx="0" dy="2" stdDeviation="5" flood-opacity="0.18" />
+        <filter id="mshadow" x="-80%" y="-80%" width="260%" height="260%">
+          <feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity="0.22" />
         </filter>
       </defs>
 
-      <!-- Semicircle -->
+      <!-- Original semicircle -->
       <path d="M 40 280 A 260 260 0 0 1 560 280 Z" fill="url(#arcGrad)" />
 
       <!-- Zone dividers -->
-      <line x1="300" y1="280" x2="127" y2="87"  stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="5 4"/>
-      <line x1="300" y1="280" x2="473" y2="87"  stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <line id="div1" stroke="rgba(255,255,255,0.38)" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <line id="div2" stroke="rgba(255,255,255,0.38)" stroke-width="1.5" stroke-dasharray="5 4"/>
 
-      <!-- Focus ring (shown when slider is focused via CSS sibling selector won't work cross-browser reliably, so we use JS) -->
-      <circle id="m-focus" cx="300" cy="20" r="26" fill="none" stroke="#005fcc" stroke-width="3" opacity="0" />
+      <!-- Keyboard focus ring -->
+      <circle id="m-focus" cx="300" cy="20" r="30"
+              fill="none" stroke="#005fcc" stroke-width="3.5" opacity="0"/>
 
       <!-- Marker -->
       <g id="marker">
-        <circle id="m-outer" cx="300" cy="20" r="20" fill="white" filter="url(#mshadow)" />
-        <circle id="m-inner" cx="300" cy="20" r="11" fill="rgb(185,195,160)" />
-        <circle cx="296" cy="17" r="1.6" fill="white" opacity="0.75"/>
-        <circle cx="300" cy="17" r="1.6" fill="white" opacity="0.75"/>
-        <circle cx="304" cy="17" r="1.6" fill="white" opacity="0.75"/>
-        <circle cx="296" cy="22" r="1.6" fill="white" opacity="0.75"/>
-        <circle cx="300" cy="22" r="1.6" fill="white" opacity="0.75"/>
-        <circle cx="304" cy="22" r="1.6" fill="white" opacity="0.75"/>
+        <circle id="m-outer" cx="0" cy="0" r="24" fill="white" filter="url(#mshadow)"/>
+        <circle id="m-inner" cx="0" cy="0" r="14" fill="rgb(162,183,143)"/>
+        <circle cx="-5" cy="-4" r="2.2" fill="white" opacity="0.82"/>
+        <circle cx=" 0" cy="-4" r="2.2" fill="white" opacity="0.82"/>
+        <circle cx=" 5" cy="-4" r="2.2" fill="white" opacity="0.82"/>
+        <circle cx="-5" cy=" 3" r="2.2" fill="white" opacity="0.82"/>
+        <circle cx=" 0" cy=" 3" r="2.2" fill="white" opacity="0.82"/>
+        <circle cx=" 5" cy=" 3" r="2.2" fill="white" opacity="0.82"/>
       </g>
     </svg>
   </div>
 
-  <!-- Hidden description for slider -->
-  <p id="slider-desc" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
-    Drag or use arrow keys to move your position between Open on the left and Not Open on the right.
+  <p id="slider-desc" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+    Drag or use arrow keys. Left is Open, right is Not Open.
   </p>
 
-  <!-- Spectrum labels (visual) -->
+  <!-- Labels -->
   <div class="labels animate d2" aria-hidden="true">
     <div class="label-item" id="lbl-0">Open</div>
     <div class="label-item" id="lbl-1">It Depends</div>
     <div class="label-item" id="lbl-2">Not Open</div>
   </div>
 
-  <!-- Current position badge -->
+  <!-- Badge -->
   <div class="animate d2" style="max-width:520px;width:100%;margin-bottom:12px;">
     <div class="position-badge" id="pos-badge" aria-hidden="true">
       <span class="badge-dot"></span>
@@ -333,48 +295,34 @@
   </div>
 
   <!-- Description card -->
-  <div class="card animate d2" aria-live="polite" aria-atomic="true" aria-label="Your current position description">
+  <div class="card animate d2"
+       aria-live="polite" aria-atomic="true"
+       aria-label="Description of your current position">
     <p class="cat-label">Responsible use of generative AI…</p>
     <p class="cat-value"><strong id="val-0">is aligned with some of my course goals</strong></p>
     <p class="cat-label">My attitude toward use of generative AI…</p>
     <p class="cat-value"><strong id="val-1">neutral or conflicted</strong></p>
   </div>
 
-  <!-- Submit -->
-  <button
-    id="submit-btn"
-    class="animate d3"
-    aria-describedby="submit-hint"
-  >
+  <button id="submit-btn" class="animate d3" aria-describedby="submit-hint">
     Place Myself on the Spectrum →
   </button>
   <p id="submit-hint" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
-    Submits your current position on the spectrum and reveals a reflection prompt.
+    Confirms your position and reveals a personal reflection prompt.
   </p>
 
-  <!-- Confirmation + Reflection -->
-  <section id="confirm-section" aria-label="Submission confirmation and reflection" tabindex="-1">
-
+  <section id="confirm-section" aria-label="Submission confirmed" tabindex="-1">
     <div class="confirm-box" id="confirm-box" role="status">
-      <span class="confirm-icon" aria-label="Success">✓</span>
+      <span class="confirm-icon" aria-label="Success checkmark">✓</span>
       <span id="confirm-text"></span>
     </div>
-
     <div class="reflect-card">
       <label for="reflect-input">
         In one or two sentences — what's driving that position for you right now?
       </label>
-      <textarea
-        id="reflect-input"
-        rows="4"
-        placeholder="Your thoughts here…"
-        aria-required="false"
-      ></textarea>
-      <p class="reflect-note" id="reflect-note">
-        This reflection is just for you — responses are not collected or shared with anyone.
-      </p>
+      <textarea id="reflect-input" rows="4" placeholder="Your thoughts here…"></textarea>
+      <p class="reflect-note">This reflection is just for you — not collected or shared with anyone.</p>
     </div>
-
   </section>
 
 </main>
@@ -383,62 +331,29 @@
 (function () {
   'use strict';
 
-  // ── Constants ──────────────────────────────────────────────
+  // Original circle-based semicircle geometry
   const CX = 300, CY = 280, R = 260;
 
+  function ellipsePoint(theta) {
+    return {
+      x: CX + R * Math.cos(theta),
+      y: CY - R * Math.sin(theta)
+    };
+  }
+
   const COLORS = [
-    [130,210,195],[160,202,178],[185,195,160],
-    [198,190,150],[210,185,140],[215,175,125],
+    [75,170,150],[115,178,147],[162,183,143],
+    [186,185,138],[210,185,140],[215,175,125],
     [220,165,110],[217,152,100],[215,140,90]
   ];
 
-  const ZONES = [
-    {
-      label: 'Open',
-      badge: 'Open',
-      responsible: 'is aligned with my course goals',
-      attitude: 'enthusiastic',
-    },
-    {
-      label: 'It Depends',
-      badge: 'It Depends',
-      responsible: 'is aligned with some of my course goals',
-      attitude: 'neutral or conflicted',
-    },
-    {
-      label: 'Not Open',
-      badge: 'Not Open',
-      responsible: 'counteracts my course goals',
-      attitude: 'skeptical',
-    },
-  ];
-
-  // ── Elements ───────────────────────────────────────────────
-  const slider      = document.getElementById('spectrum-slider');
-  const marker      = document.getElementById('marker');
-  const mInner      = document.getElementById('m-inner');
-  const mFocus      = document.getElementById('m-focus');
-  const lbls        = [0,1,2].map(i => document.getElementById('lbl-'+i));
-  const val0        = document.getElementById('val-0');
-  const val1        = document.getElementById('val-1');
-  const badge       = document.getElementById('pos-badge');
-  const badgeText   = document.getElementById('badge-text');
-  const badgeDot    = badge.querySelector('.badge-dot');
-  const submitBtn   = document.getElementById('submit-btn');
-  const confirmSec  = document.getElementById('confirm-section');
-  const confirmBox  = document.getElementById('confirm-box');
-  const confirmText = document.getElementById('confirm-text');
-  const srLive      = document.getElementById('sr-live');
-  const reflectInput= document.getElementById('reflect-input');
-
-  // ── Helpers ────────────────────────────────────────────────
   function lerp(a, b, t) { return a + (b - a) * t; }
 
-  function getColor(p) { // p: 0–1
+  function getColor(p) {
     const n = COLORS.length - 1;
     const i = Math.min(Math.floor(p * n), n - 1);
     const f = p * n - i;
-    const a = COLORS[i], b = COLORS[i+1];
+    const a = COLORS[i], b = COLORS[i + 1];
     return [
       Math.round(lerp(a[0],b[0],f)),
       Math.round(lerp(a[1],b[1],f)),
@@ -446,177 +361,162 @@
     ];
   }
 
-  function toRgb([r,g,b]) { return `rgb(${r},${g},${b})`; }
+  function toRgb([r,g,b])      { return `rgb(${r},${g},${b})`; }
+  function toRgba([r,g,b], a)  { return `rgba(${r},${g},${b},${a})`; }
+  function getZone(p)          { return p < 1/3 ? 0 : p < 2/3 ? 1 : 2; }
 
-  function getZone(p) {
-    return p < 1/3 ? 0 : p < 2/3 ? 1 : 2;
-  }
+  const ZONES = [
+    { badge:'Open',       responsible:'is aligned with my course goals',         attitude:'enthusiastic'         },
+    { badge:'It Depends', responsible:'is aligned with some of my course goals',  attitude:'neutral or conflicted' },
+    { badge:'Not Open',   responsible:'counteracts my course goals',              attitude:'skeptical'            },
+  ];
 
-  // Perceived luminance — decide text contrast
-  function luminance([r,g,b]) {
-    const s = [r,g,b].map(v => {
-      v /= 255;
-      return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4);
-    });
-    return 0.2126*s[0] + 0.7152*s[1] + 0.0722*s[2];
-  }
+  const slider      = document.getElementById('spectrum-slider');
+  const arcWrap     = document.getElementById('arc-wrap');
+  const marker      = document.getElementById('marker');
+  const mInner      = document.getElementById('m-inner');
+  const mFocus      = document.getElementById('m-focus');
+  const div1        = document.getElementById('div1');
+  const div2        = document.getElementById('div2');
+  const lbls        = [0,1,2].map(i => document.getElementById('lbl-'+i));
+  const val0        = document.getElementById('val-0');
+  const val1        = document.getElementById('val-1');
+  const badge       = document.getElementById('pos-badge');
+  const badgeText   = document.getElementById('badge-text');
+  const submitBtn   = document.getElementById('submit-btn');
+  const confirmSec  = document.getElementById('confirm-section');
+  const confirmBox  = document.getElementById('confirm-box');
+  const confirmText = document.getElementById('confirm-text');
+  const srLive      = document.getElementById('sr-live');
 
-  // ── Render ─────────────────────────────────────────────────
+  // Draw zone dividers
+  [[div1, 1/3],[div2, 2/3]].forEach(([el, p]) => {
+    const pt = ellipsePoint(Math.PI - p * Math.PI);
+    el.setAttribute('x1', CX); el.setAttribute('y1', CY);
+    el.setAttribute('x2', pt.x); el.setAttribute('y2', pt.y);
+  });
+
+  let lastZone = 1;
+
   function render(sliderVal, announce) {
-    const p = sliderVal / 100; // 0–1, 0=Open, 1=Not Open
-    const angle = Math.PI - p * Math.PI; // π → 0
-    const mx = CX + R * Math.cos(angle);
-    const my = CY - R * Math.sin(angle);
-    const col = getColor(p);
+    const p      = sliderVal / 100;
+    const theta  = Math.PI - p * Math.PI;
+    const pt     = ellipsePoint(theta);
+    const col    = getColor(p);
     const colStr = toRgb(col);
-    const zone = getZone(p);
-    const zd = ZONES[zone];
+    const zone   = getZone(p);
+    const zd     = ZONES[zone];
 
-    // Move marker
-    marker.setAttribute('transform', `translate(${mx - CX},${my - CY})`);
-    mFocus.setAttribute('transform', `translate(${mx - CX},${my - CY})`);
+    marker.setAttribute('transform', `translate(${pt.x},${pt.y})`);
+    mFocus.setAttribute('cx', pt.x);
+    mFocus.setAttribute('cy', pt.y);
     mInner.style.fill = colStr;
 
-    // Labels
     lbls.forEach((l, i) => {
       const active = i === zone;
       l.classList.toggle('active', active);
-      l.style.color = active ? colStr : '';
+      l.style.color = active ? colStr : '#555';
     });
 
-    // Badge
     badgeText.textContent = zd.badge;
     badge.style.color = colStr;
 
-    // Card values
-    val0.textContent = zd.responsible;
-    val0.style.color = colStr;
-    val1.textContent = zd.attitude;
-    val1.style.color = colStr;
+    val0.textContent = zd.responsible; val0.style.color = colStr;
+    val1.textContent = zd.attitude;    val1.style.color = colStr;
 
-    // Button
     submitBtn.style.background = colStr;
-    submitBtn.style.boxShadow = `0 4px 20px ${colStr}66`;
+    submitBtn.style.boxShadow  = `0 4px 20px ${toRgba(col, 0.4)}`;
 
-    // Confirm box accent
-    confirmBox.style.background = `rgba(${col[0]},${col[1]},${col[2]},0.1)`;
-    confirmBox.style.border = `1.5px solid rgba(${col[0]},${col[1]},${col[2]},0.4)`;
+    confirmBox.style.background = toRgba(col, 0.08);
+    confirmBox.style.border     = `1.5px solid ${toRgba(col, 0.35)}`;
 
-    // Update aria-valuetext for screen readers
-    const valueText = `${zd.badge} — ${zd.attitude} attitude, ${zd.responsible}`;
-    slider.setAttribute('aria-valuetext', valueText);
+    slider.setAttribute('aria-valuetext',
+      `${zd.badge} — ${zd.attitude}, ${zd.responsible}`);
 
-    // Polite announcement on zone change (not every pixel)
     if (announce) {
       srLive.textContent = `${zd.badge}: ${zd.responsible}. Attitude: ${zd.attitude}.`;
     }
   }
 
-  // ── Slider events ──────────────────────────────────────────
-  let lastZone = 1;
-
   slider.addEventListener('input', () => {
     const v = parseInt(slider.value, 10);
     const zone = getZone(v / 100);
-    const zoneChanged = zone !== lastZone;
+    const changed = zone !== lastZone;
     lastZone = zone;
-    render(v, zoneChanged);
+    render(v, changed);
   });
 
-  // Focus ring on SVG marker
   slider.addEventListener('focus', () => { mFocus.style.opacity = '1'; });
   slider.addEventListener('blur',  () => { mFocus.style.opacity = '0'; });
 
-  // Mouse click on SVG arc — map to slider value
-  const arcWrap = document.getElementById('arc-wrap');
-  arcWrap.addEventListener('click', (e) => {
-    if (slider.disabled) return;
-    // Don't intercept clicks on the slider itself
-    if (e.target === slider) return;
+  function posFromEvent(clientX, clientY) {
     const rect = arcWrap.getBoundingClientRect();
-    const svgW = rect.width;
-    const scaleX = 600 / svgW;
-    const scaleY = 290 / (rect.height || svgW * 290/600);
-    const x = (e.clientX - rect.left) * scaleX;
-    const y = (e.clientY - rect.top)  * scaleY;
-    const dx = x - CX, dy = CY - y;
-    const angle = Math.atan2(dy, dx);
-    if (angle < 0.02 || angle > Math.PI - 0.02) return;
-    const p = 1 - angle / Math.PI;
-    const v = Math.round(Math.max(1, Math.min(99, p * 100)));
+    const sx   = (clientX - rect.left) * (600 / rect.width);
+    const sy   = (clientY - rect.top)  * (290 / rect.height);
+    const dx   = sx - CX, dy = CY - sy;
+    const theta = Math.atan2(dy, dx);
+    if (theta < 0.02 || theta > Math.PI - 0.02) return null;
+    return Math.round(Math.max(1, Math.min(99, (1 - theta / Math.PI) * 100)));
+  }
+
+  arcWrap.addEventListener('click', (e) => {
+    if (slider.disabled || e.target === slider) return;
+    const v = posFromEvent(e.clientX, e.clientY);
+    if (v === null) return;
     slider.value = v;
     const zone = getZone(v / 100);
-    const zoneChanged = zone !== lastZone;
+    const changed = zone !== lastZone;
     lastZone = zone;
-    render(v, zoneChanged);
+    render(v, changed);
     slider.focus();
   });
 
-  // Touch drag on SVG
   let touching = false;
-  arcWrap.addEventListener('touchstart', (e) => {
-    if (slider.disabled) return;
-    touching = true;
-  }, { passive: true });
-
+  arcWrap.addEventListener('touchstart',  () => { if (!slider.disabled) touching = true; }, { passive: true });
+  arcWrap.addEventListener('touchend',    () => { touching = false; });
   arcWrap.addEventListener('touchmove', (e) => {
     if (!touching || slider.disabled) return;
     e.preventDefault();
     const t = e.touches[0];
-    const rect = arcWrap.getBoundingClientRect();
-    const svgW = rect.width;
-    const scaleX = 600 / svgW;
-    const scaleY = 290 / (rect.height || svgW * 290/600);
-    const x = (t.clientX - rect.left) * scaleX;
-    const y = (t.clientY - rect.top)  * scaleY;
-    const dx = x - CX, dy = CY - y;
-    const angle = Math.atan2(dy, dx);
-    if (angle < 0.02 || angle > Math.PI - 0.02) return;
-    const p = 1 - angle / Math.PI;
-    const v = Math.round(Math.max(1, Math.min(99, p * 100)));
+    const v = posFromEvent(t.clientX, t.clientY);
+    if (v === null) return;
     slider.value = v;
     const zone = getZone(v / 100);
-    const zoneChanged = zone !== lastZone;
+    const changed = zone !== lastZone;
     lastZone = zone;
-    render(v, zoneChanged);
+    render(v, changed);
   }, { passive: false });
 
-  arcWrap.addEventListener('touchend', () => { touching = false; });
-
-  // ── Submit ─────────────────────────────────────────────────
   submitBtn.addEventListener('click', () => {
     if (slider.disabled) return;
     slider.disabled = true;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitted ✓';
+    arcWrap.classList.add('done');
 
-    const v = parseInt(slider.value, 10);
+    const v   = parseInt(slider.value, 10);
     const zone = getZone(v / 100);
-    const zd = ZONES[zone];
+    const zd  = ZONES[zone];
     const col = toRgb(getColor(v / 100));
 
-    // Show confirmation
     confirmSec.classList.add('show');
     confirmText.innerHTML =
       `You placed yourself as <strong style="color:${col}">${zd.badge}</strong>. ` +
-      `Your attitude: <strong>${zd.attitude}</strong>. ` +
-      `Responsible use of generative AI <strong>${zd.responsible}</strong>.`;
+      `Your attitude is <strong>${zd.attitude}</strong>, and responsible use of ` +
+      `generative AI <strong>${zd.responsible}</strong>.`;
 
-    // Announce to screen readers
     srLive.textContent =
       `Submitted. You placed yourself as ${zd.badge}. ` +
       `Your attitude is ${zd.attitude}. ` +
       `Responsible use of generative AI ${zd.responsible}. ` +
       `A reflection prompt is now available below.`;
 
-    // Move focus to the confirmation section
     setTimeout(() => {
       confirmSec.focus();
       confirmSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
+    }, 120);
   });
 
-  // ── Init ───────────────────────────────────────────────────
   render(50, false);
 
 })();
