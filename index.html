@@ -103,7 +103,7 @@
   }
   .label-item {
     flex: 1; font-size: 13px; font-weight: 600;
-    color: #555; /* noticeably darker than before */
+    color: #222;
     transition: color 0.25s; letter-spacing: 0.02em;
   }
   .label-item:nth-child(2) { text-align: center; }
@@ -299,6 +299,20 @@
       <span class="confirm-icon" aria-label="Success checkmark">✓</span>
       <span id="confirm-text"></span>
     </div>
+    <div style="text-align:center; margin-bottom:20px;">
+      <button id="reset-btn" style="
+        background: none;
+        border: 2px solid #ccc;
+        border-radius: 100px;
+        padding: 10px 28px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: 'DM Sans', sans-serif;
+        color: #666;
+        cursor: pointer;
+        transition: border-color 0.2s, color 0.2s;
+      ">↩ Try Again</button>
+    </div>
     <div class="reflect-card">
       <p class="cat-label" style="margin-bottom:12px;">Share Your Reflection</p>
       <iframe
@@ -405,7 +419,7 @@
     lbls.forEach((l, i) => {
       const active = i === zone;
       l.classList.toggle('active', active);
-      l.style.color = active ? colStr : '#555';
+      l.style.color = active ? colStr : '#222';
     });
 
     badgeText.textContent = zd.badge;
@@ -508,6 +522,40 @@
   });
 
   render(50, false);
+
+  // ── Reset ──────────────────────────────────────────────────
+  const resetBtn = document.getElementById('reset-btn');
+  if (resetBtn) {
+    resetBtn.addEventListener('mouseenter', () => {
+      resetBtn.style.borderColor = '#999';
+      resetBtn.style.color = '#333';
+    });
+    resetBtn.addEventListener('mouseleave', () => {
+      resetBtn.style.borderColor = '#ccc';
+      resetBtn.style.color = '#666';
+    });
+    resetBtn.addEventListener('click', () => {
+      // Re-enable slider and button
+      slider.disabled = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Place Myself on the Spectrum →';
+      arcWrap.classList.remove('done');
+
+      // Reset slider to middle
+      slider.value = 50;
+      lastZone = 1;
+      render(50, false);
+
+      // Hide confirmation section
+      confirmSec.classList.remove('show');
+
+      // Scroll back to top
+      document.querySelector('.header').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Announce to screen readers
+      srLive.textContent = 'Reset. You can now place yourself on the spectrum again.';
+    });
+  }
 
 })();
 </script>
