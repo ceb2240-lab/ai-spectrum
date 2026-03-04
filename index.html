@@ -179,6 +179,25 @@
   }
 
 
+  /* Reset button */
+  #reset-btn {
+    background: none;
+    border: 2px solid #ccc;
+    border-radius: 100px;
+    padding: 10px 28px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    color: #666;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    display: block;
+    margin: 0 auto 20px;
+  }
+  #reset-btn:hover { border-color: #999; color: #333; }
+  #reset-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .reset-wrap { text-align: center; margin-bottom: 20px; }
+
   @media (forced-colors: active) {
     #submit-btn { border: 2px solid ButtonText; }
     .confirm-box { border: 2px solid CanvasText; }
@@ -299,19 +318,8 @@
       <span class="confirm-icon" aria-label="Success checkmark">✓</span>
       <span id="confirm-text"></span>
     </div>
-    <div style="text-align:center; margin-bottom:20px;">
-      <button id="reset-btn" style="
-        background: none;
-        border: 2px solid #ccc;
-        border-radius: 100px;
-        padding: 10px 28px;
-        font-size: 13px;
-        font-weight: 600;
-        font-family: 'DM Sans', sans-serif;
-        color: #666;
-        cursor: pointer;
-        transition: border-color 0.2s, color 0.2s;
-      ">↩ Try Again</button>
+    <div class="reset-wrap">
+      <button id="reset-btn">↩ Try Again</button>
     </div>
     <div class="reflect-card">
       <p class="cat-label" style="margin-bottom:12px;">Share Your Reflection</p>
@@ -526,14 +534,6 @@
   // ── Reset ──────────────────────────────────────────────────
   const resetBtn = document.getElementById('reset-btn');
   if (resetBtn) {
-    resetBtn.addEventListener('mouseenter', () => {
-      resetBtn.style.borderColor = '#999';
-      resetBtn.style.color = '#333';
-    });
-    resetBtn.addEventListener('mouseleave', () => {
-      resetBtn.style.borderColor = '#ccc';
-      resetBtn.style.color = '#666';
-    });
     resetBtn.addEventListener('click', () => {
       // Re-enable slider and button
       slider.disabled = false;
