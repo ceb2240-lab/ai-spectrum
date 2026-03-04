@@ -177,23 +177,7 @@
     border-radius: 16px; padding: 22px 26px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.06);
   }
-  .reflect-card label {
-    display: block; font-size: 14px; font-weight: 600;
-    color: #222; margin-bottom: 10px; line-height: 1.55;
-  }
-  .reflect-card textarea {
-    width: 100%; border: 2px solid #ddd; border-radius: 10px;
-    padding: 12px 14px; font-size: 14px;
-    font-family: 'DM Sans', sans-serif;
-    color: var(--ink); background: var(--bg); resize: vertical;
-    min-height: 100px; outline: none;
-    transition: border-color 0.2s; line-height: 1.6;
-  }
-  .reflect-card textarea:focus {
-    border-color: var(--focus);
-    box-shadow: 0 0 0 3px rgba(0,95,204,0.15);
-  }
-  .reflect-note { font-size: 12px; color: #999; margin-top: 10px; font-style: italic; line-height: 1.5; }
+
 
   @media (forced-colors: active) {
     #submit-btn { border: 2px solid ButtonText; }
@@ -214,7 +198,6 @@
 <main id="main-content">
 
   <header class="header animate">
-    <p class="eyebrow" aria-hidden="true">Course Survey</p>
     <h1>Openness to AI<br><em>in the Classroom</em></h1>
     <p class="subtitle">Where do you currently stand on using generative AI in your teaching?</p>
   </header>
@@ -317,11 +300,18 @@
       <span id="confirm-text"></span>
     </div>
     <div class="reflect-card">
-      <label for="reflect-input">
-        In one or two sentences — what's driving that position for you right now?
-      </label>
-      <textarea id="reflect-input" rows="4" placeholder="Your thoughts here…"></textarea>
-      <p class="reflect-note">This reflection is just for you — not collected or shared with anyone.</p>
+      <p class="cat-label" style="margin-bottom:12px;">Share Your Reflection</p>
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLScx019rAJBu_FoGq9VZJfOscoTM4vSN3grbdvOOBcImMakCiQ/viewform?embedded=true"
+        width="100%"
+        height="480"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        title="AI Spectrum Reflection Form"
+        style="border-radius:8px; display:block;">
+        Loading…
+      </iframe>
     </div>
   </section>
 
